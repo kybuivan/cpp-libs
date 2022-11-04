@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <cmath>
 #include "twin_config.h"
 #ifdef USE_CORE
 #include "twin_core.h"
@@ -21,7 +22,7 @@ int main(int argc, char *argv[])
 #ifdef USE_CORE
     const double outputValue = core::sqrt(inputValue);
 #else
-    const double outputValue = sqrt(inputValue);
+    const double outputValue = std::sqrt(inputValue);
 #endif
     std::cout << "The square root of " << inputValue << " is " << outputValue
             << std::endl;
