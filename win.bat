@@ -1,4 +1,4 @@
 DEL /Q build\CMakeCache.txt
 cmake -S . -B ./build
-cmake --build ./build --config release --clean-first
+cmake --build ./build
 .\build\Release\twin.exe
