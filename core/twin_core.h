@@ -1,6 +1,14 @@
 #pragma one
+#if defined(_WIN32)
+#  if defined(EXPORTING_CORE)
+#    define DECLSPEC __declspec(dllexport)
+#  else
+#    define DECLSPEC __declspec(dllimport)
+#  endif
+#else // non windows
+#  define DECLSPEC
+#endif
 
-namespace core
-{
-    double sqrt(double x);
+namespace core {
+    double DECLSPEC sqrt(double x);
 }

@@ -16,23 +16,24 @@ target_compile_options(twin_compiler_flags INTERFACE
   "$<${msvc_cxx}:$<BUILD_INTERFACE:-W3>>"
 )
 
-# should we use our own core functions
-option(USE_CORE "Use twin provided core implementation" ON)
+# control where the static and shared libraries are built so that on windows
+# we don't need to tinker with the path to run the executable
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}")
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}")
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}")
 
-# configure a header file to pass some of the CMake settings
-# to the source code
+# should we use our own core functions
+option(BUILD_SHARED_LIBS "Build using shared libraries" ON)
+
+# configure a header file to pass the version number only
 configure_file(twin_config.h.in twin_config.h)
 
 # add the core library
-if(USE_CORE)
-  add_subdirectory(core)
-  list(APPEND EXTRA_LIBS core)
-endif()
+add_subdirectory(core)
 
 # add the executable
 add_executable(twin twin.cxx)
-target_link_libraries(twin PUBLIC ${EXTRA_LIBS} twin_compiler_flags)
-
+target_link_libraries(twin PUBLIC core twin_compiler_flags)
 # add the binary tree to the search path for include files
 target_include_directories(twin PUBLIC
                            "${PROJECT_BINARY_DIR}"
@@ -74,7 +75,7 @@ do_test(twin -25 "-25 is (-nan|nan|0)")
 do_test(twin 0.0001 "0.0001 is 0.01")
 
 include(InstallRequiredSystemLibraries)
-set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/License.txt")
+set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
 set(CPACK_PACKAGE_VERSION_MAJOR "${twin_VERSION_MAJOR}")
 set(CPACK_PACKAGE_VERSION_MINOR "${twin_VERSION_MINOR}")
 set(CPACK_SOURCE_GENERATOR "TGZ")
