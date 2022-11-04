@@ -1,9 +1,24 @@
-add_library(core twin_core.cxx)
+# first we add the executable that generates the table
+add_executable(MakeTable MakeTable.cxx)
+
+# add the command to generate the source code
+add_custom_command(
+  OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/Table.h
+  COMMAND MakeTable ${CMAKE_CURRENT_BINARY_DIR}/Table.h
+  DEPENDS MakeTable
+  )
+
+add_library(core
+            twin_core.cxx
+            ${CMAKE_CURRENT_BINARY_DIR}/Table.h
+            )
+
 target_link_libraries(core twin_compiler_flags)
 
 # link our compiler flags interface library
 target_include_directories(core
-          INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}
+            INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}
+            PRIVATE   ${CMAKE_CURRENT_BINARY_DIR}
           )
 
 # does this system provide the log and exp functions?

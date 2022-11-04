@@ -2,5 +2,5 @@
 
 namespace core
 {
-    float sqrt(float input);
+    double sqrt(double x);
 }
