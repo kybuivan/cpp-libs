@@ -1,7 +1,9 @@
 #include <iostream>
 #include <string>
 #include "twin_config.h"
+#ifdef USE_CORE
 #include "twin_core.h"
+#endif
 
 int main(int argc, char *argv[])
 {
@@ -14,6 +16,11 @@ int main(int argc, char *argv[])
 
     double earth = std::stod (orbits,&sz);
     double moon = std::stod (orbits.substr(sz));
-    std::cout << "The moon completes " << core::sqrt(earth/moon) << " orbits per Earth year.\n";
+#ifdef USE_CORE
+    const double outputValue = core::sqrt(earth/moon);
+#else
+    const double outputValue = sqrt(earth/moon);
+#endif
+    std::cout << "The moon completes " << outputValue << " orbits per Earth year.\n";
     return 0;
 }
