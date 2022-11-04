@@ -7,20 +7,23 @@
 
 int main(int argc, char *argv[])
 {
-    // report version
-    std::cout << argv[0] << " Version " << twin_VERSION_MAJOR << "."
-            << twin_VERSION_MINOR << std::endl;
-
-    std::string orbits ("365.24 29.53");
-    std::string::size_type sz;     // alias of size_t
-
-    double earth = std::stod (orbits,&sz);
-    double moon = std::stod (orbits.substr(sz));
+    if (argc < 2) {
+        // report version
+        std::cout << argv[0] << " Version " << twin_VERSION_MAJOR << "."
+                << twin_VERSION_MINOR << std::endl;
+        std::cout << "Usage: " << argv[0] << " number" << std::endl;
+        return 1;
+    }
+    
+    // convert input to double
+    const double inputValue = std::stod(argv[1]);
+    
 #ifdef USE_CORE
-    const double outputValue = core::sqrt(earth/moon);
+    const double outputValue = core::sqrt(inputValue);
 #else
-    const double outputValue = sqrt(earth/moon);
+    const double outputValue = sqrt(inputValue);
 #endif
-    std::cout << "The moon completes " << outputValue << " orbits per Earth year.\n";
+    std::cout << "The square root of " << inputValue << " is " << outputValue
+            << std::endl;
     return 0;
 }
