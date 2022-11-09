@@ -7,6 +7,8 @@ project(twin VERSION 0.1)
 add_library(twin_compiler_flags INTERFACE)
 target_compile_features(twin_compiler_flags INTERFACE cxx_std_11)
 
+set(CMAKE_DEBUG_POSTFIX d)
+
 # add compiler warning flags just when building this project via
 # the BUILD_INTERFACE genex
 set(gcc_like_cxx "$<COMPILE_LANG_AND_ID:CXX,ARMClang,AppleClang,Clang,GNU,LCC>")
@@ -33,6 +35,9 @@ add_subdirectory(core)
 
 # add the executable
 add_executable(twin twin.cxx)
+
+set_target_properties(twin PROPERTIES DEBUG_POSTFIX ${CMAKE_DEBUG_POSTFIX})
+
 target_link_libraries(twin PUBLIC core twin_compiler_flags)
 # add the binary tree to the search path for include files
 target_include_directories(twin PUBLIC

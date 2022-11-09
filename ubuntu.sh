@@ -4,4 +4,4 @@ cmake --build ./build --config Debug
 make install
 cd build
 ctest [-VV] -C Debug -D Experimental
-cpack -G ZIP -C Debug
+cpack -G ZIP --config MultiCPackConfig.cmake

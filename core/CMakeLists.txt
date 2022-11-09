@@ -1,6 +1,9 @@
 # add the library that runs
 add_library(core twin_core.cxx)
 
+set_property(TARGET core PROPERTY VERSION "0.1.0")
+set_property(TARGET core PROPERTY SOVERSION "1")
+
 # state that anybody linking to us needs to include the current source dir
 # to find twin_core.h, while we don't.
 target_include_directories(core
