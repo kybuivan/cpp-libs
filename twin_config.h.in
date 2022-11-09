@@ -1,0 +1,4 @@
+// the configured options and settings for twin
+#define twin_VERSION_MAJOR @twin_VERSION_MAJOR@
+#define twin_VERSION_MINOR @twin_VERSION_MINOR@
+#cmakedefine USE_MYMATH
