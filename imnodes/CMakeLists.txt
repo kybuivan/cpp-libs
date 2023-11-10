@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.24 FATAL_ERROR)
 
 set(CMAKE_CXX_STANDARD 20)
-project(imgui_example CXX)
+project(imnodes_example CXX)
 
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/../cmake ${PROJECT_SOURCE_DIR}/../cmake/external)
 
@@ -11,6 +11,7 @@ include(FetchContent)
 include(glfw)
 include(glad)
 include(imgui)
+include(imnodes)
 
 file(GLOB _files
     "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp"
@@ -25,4 +26,4 @@ target_include_directories(${PROJECT_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-target_link_libraries(${PROJECT_NAME} PRIVATE external::glfw external::glad external::imgui)
+target_link_libraries(${PROJECT_NAME} PRIVATE external::glfw external::glad external::imgui external::imnodes)

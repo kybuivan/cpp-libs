@@ -7,3 +7,6 @@ If you know of a library that might be useful to others, please add a link to it
 The page is provided "as is" - with the hope of being useful but without any warranties. Outdated, misleading, or incorrect links might appear here. If you notice any of these issues, it would be great if you could fix the error.
 
 ## Audio
+
+## Graphic User Interface
+[Dear ImGui](https://github.com/ocornut/imgui.git): Bloat-free Graphical User interface for C++ with minimal dependencies
